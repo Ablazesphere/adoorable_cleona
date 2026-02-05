@@ -368,10 +368,18 @@ function Door(config, level) {
 				if (level.isIntro) {
 					createjs.Sound.play("ding");
 					STAGE = 1;
-					syncScreens();
 
-					levelObjects[CURRENT_LEVEL] = lvl;
-					window.level = lvl;
+					// Initialize first level
+					CURRENT_LEVEL = 0;
+					var lvl = new Level(LEVEL_CONFIG[0]);
+					levelObjects[0] = lvl;
+					window.level = null;
+
+					setTimeout(function () {
+						window.level = lvl;
+					}, 300);
+
+					syncScreens();
 					return "END_LEVEL";
 				} else {
 					next();
@@ -454,6 +462,12 @@ function Peep(config, level) {
 			//if(self.frame==0) bounce=0.8;
 			self.frame++;
 			if (self.frame > 9) self.frame = 1;
+
+			// Hide mobile tutorial hint once player moves
+			var mobileHint = document.getElementById("tutorial_mobile_hint");
+			if (mobileHint && mobileHint.style.display !== "none") {
+				mobileHint.style.display = "none";
+			}
 		} else {
 			if (self.frame > 0) self.bounce = 0.8;
 			self.frame = 0;
@@ -798,11 +812,7 @@ function iHeartYou() {
 	if (window.location.hash) {
 		vtext.textContent = encryptString(decodeURIComponent(window.location.hash).substring(1));
 	} else {
-		if (window.innerWidth < 600) {
-			vtext.textContent = "I \u2764\uFE0F U";
-		} else {
-			vtext.textContent = "soo I see Saira said I \u2764\uFE0F U, thank you thank you <3";
-		}
+		vtext.innerHTML = "Awww... you really love me??<br><span style='font-size:0.8em; opacity:0.8;'>You've unlocked every door, but there's still one secret left to find... :))</span>";
 	}
 
 	// Force surprise visibility logic immediately when this sequence starts
@@ -812,10 +822,6 @@ function iHeartYou() {
 		surprise.style.opacity = "0"; // Start invisible for fade in
 		setTimeout(function () { surprise.style.opacity = "1"; }, 100);
 	}
-
-	setTimeout(function () {
-		vtext.style.letterSpacing = "3px";
-	}, 10);
 
 	// After 9 seconds, swipe down to CREDITS.
 	// No replay. Fuck it.
@@ -882,18 +888,40 @@ introCanvas.width = window.innerWidth;
 introCanvas.height = window.innerHeight;
 var cx = window.innerWidth / 2;
 var cy = window.innerHeight / 2;
-
+// Initial Responsive INTRO_LEVEL
 window.INTRO_LEVEL = {
-
-	canvas: document.getElementById("canvas_intro"),
+	canvas: introCanvas,
 	player: { x: cx - 150, y: cy - 30 },
 	door: { x: cx + 150, y: cy - 30 },
 	key: { x: cx, y: cy + 125 },
 	circles: [
-		{ x: cx, y: cy, radius: 120, invisible: true }
+		{ x: cx, y: cy, radius: 121, invisible: true }
 	]
-
 };
+
+// Handle Resize for Responsive Intro
+window.addEventListener("resize", function () {
+	if (STAGE == 0) {
+		introCanvas.width = window.innerWidth;
+		introCanvas.height = window.innerHeight;
+		cx = window.innerWidth / 2;
+		cy = window.innerHeight / 2;
+
+		INTRO_LEVEL.player.x = cx - 150;
+		INTRO_LEVEL.player.y = cy - 30;
+		INTRO_LEVEL.door.x = cx + 150;
+		INTRO_LEVEL.door.y = cy - 30;
+		INTRO_LEVEL.key.x = cx;
+		INTRO_LEVEL.key.y = cy + 125;
+		INTRO_LEVEL.circles[0].x = cx;
+		INTRO_LEVEL.circles[0].y = cy;
+
+		if (level && level.isIntro) {
+			level.width = introCanvas.width;
+			level.height = introCanvas.height;
+		}
+	}
+});
 
 window.LEVEL_CONFIG = [
 

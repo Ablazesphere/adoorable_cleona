@@ -32,15 +32,16 @@
 			border: 4px solid #333;
 			box-shadow: 10px 10px 0px #000;
 			max-width: 90%;
-			margin: 20px auto;
+			margin: 0;
 			position: relative;
 
 			/* Hidden by default, shown by game logic in STAGE 4 */
 			display: none;
 			visibility: visible !important;
 			z-index: 1000;
-			margin-top: 50px;
 		}
+
+
 
 		.surprise-container h1 {
 			font-family: 'Press Start 2P', cursive;
@@ -101,6 +102,8 @@
 		<!--span style="display:none"-->
 		<div id="screen_one">
 			<canvas id="canvas_intro"></canvas>
+			<div id="tutorial_mobile_hint">Move around to find the key!</div>
+			<div id="mobile_personal_message">Hi Saira, I made this for you!</div>
 		</div>
 
 		<div id="screen_two">
@@ -120,17 +123,14 @@
 		<!--/span-->
 
 		<div id="screen_three">
-			<br>
-			<br>
 
 			<div class="surprise-container">
-				<h1>One last surprise</h1>
-				<p class="subheading">Some beautiful flowers for you</p>
-				<a href="https://flowerforsaira.enjoyxd.eu.org/" class="gradient-button" target="_blank">Here is the
-					garden.</a>
-				<p class="instruction">Don't forget to tap the screen once you're in the garden.</p>
+				<h1>Wait, one more a(door)able thing!</h1>
+				<p class="subheading">Since I'm currently stuck behind this screen, I hired some professionals to do it
+					for me.</p>
+				<a href="https://www.youtube.com/watch?v=8ScAnaU0FFE" class="gradient-button" target="_blank">Hmm
+					mysterious...</a>
 			</div>
-
 		</div>
 
 	</div>
@@ -138,16 +138,18 @@
 	<!-- Mobile Controls (Global) -->
 	<div id="mobile_controls">
 		<div class="dpad-row">
-			<div class="dpad-btn" id="btn_up">&#9650;</div>
+			<div class="dpad-spacer"></div>
+			<div class="dpad-btn" id="btn_up">&#9650;&#xFE0E;</div>
+			<div class="dpad-spacer"></div>
 		</div>
 		<div class="dpad-row">
-			<div class="dpad-btn" id="btn_left">&#9664;</div>
-			<div class="dpad-btn" id="btn_down">&#9660;</div>
-			<div class="dpad-btn" id="btn_right">&#9654;</div>
+			<div class="dpad-btn" id="btn_left">&#9664;&#xFE0E;</div>
+			<div class="dpad-btn" id="btn_down">&#9660;&#xFE0E;</div>
+			<div class="dpad-btn" id="btn_right">&#9654;&#xFE0E;</div>
 		</div>
 	</div>
 
-	</div>
+
 </body>
 
 </html>
@@ -158,5 +160,6 @@
 <script src="js/soundjs-0.6.0.min.js"></script>
 
 <script>
-	//STAGE = 4;
+	// STAGE = 4;
+	// setTimeout(function () { iHeartYou(); STAGE = 4; syncScreens(); }, 200);
 </script>
