@@ -1,0 +1,162 @@
+<!doctype>
+<html>
+
+<head>
+
+	<!-- Place this data between the <head> tags of your website -->
+	<meta charset="utf-8">
+	<title>it's a(door)able</title>
+	<meta name="description" content="a one-minute minigame." />
+	<link rel="icon" type="image/png" href="favicon.png">
+
+	<!-- Schema.org markup for Google+ -->
+	<meta itemprop="name" content="it's a(door)able">
+	<meta itemprop="description" content="a one-minute minigame.">
+
+	<!-- Open Graph data -->
+	<meta property="og:title" content="it's a(door)able">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://game.alisaaa.me/">
+	<meta property="og:description" content="a one-minute minigame.">
+	<meta property="og:site_name" content="it's a(door)able">
+
+	<!-- Style -->
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<style>
+		.surprise-container {
+			text-align: center;
+			font-family: 'VT323', monospace;
+			color: #333;
+			background: #fff;
+			padding: 20px;
+			border: 4px solid #333;
+			box-shadow: 10px 10px 0px #000;
+			max-width: 90%;
+			margin: 20px auto;
+			position: relative;
+
+			/* Hidden by default, shown by game logic in STAGE 4 */
+			display: none;
+			visibility: visible !important;
+			z-index: 1000;
+			margin-top: 50px;
+		}
+
+		.surprise-container h1 {
+			font-family: 'Press Start 2P', cursive;
+			font-size: 24px;
+			margin-bottom: 20px;
+			line-height: 1.5;
+			text-transform: uppercase;
+		}
+
+		.surprise-container .subheading {
+			font-size: 24px;
+			margin-bottom: 30px;
+			color: #555;
+			letter-spacing: 1px;
+		}
+
+		.gradient-button {
+			display: inline-block;
+			padding: 15px 30px;
+			text-decoration: none;
+			color: #fff;
+			font-family: 'Press Start 2P', cursive;
+			font-size: 14px;
+			background: #FF6B6B;
+			border: 4px solid #000;
+			box-shadow: 5px 5px 0px #000;
+			transition: all 0.1s;
+			cursor: pointer;
+			text-transform: uppercase;
+		}
+
+		.gradient-button:hover {
+			transform: translate(2px, 2px);
+			box-shadow: 3px 3px 0px #000;
+		}
+
+		.gradient-button:active {
+			transform: translate(5px, 5px);
+			box-shadow: 0px 0px 0px #000;
+		}
+
+		.surprise-container .instruction {
+			margin-top: 25px;
+			font-size: 18px;
+			color: #777;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="loading">
+		<div>LOADING &#10084;&#65039;</div>
+	</div>
+
+	<div id="whole_container">
+
+		<!--span style="display:none"-->
+		<div id="screen_one">
+			<canvas id="canvas_intro"></canvas>
+		</div>
+
+		<div id="screen_two">
+			<div id="canvas_container">
+
+				<canvas id="canvas_1" width="300" height="380"></canvas>
+				<canvas id="canvas_2" width="300" height="380"></canvas>
+				<canvas id="canvas_3" width="300" height="380" style="margin:0"></canvas>
+
+				<div id="valentines_text"></div>
+				<div id="rewind_text">rewinding...</div>
+				<div id="replay_text">playing back...</div>
+
+			</div>
+		</div>
+
+		<!--/span-->
+
+		<div id="screen_three">
+			<br>
+			<br>
+
+			<div class="surprise-container">
+				<h1>One last surprise</h1>
+				<p class="subheading">Some beautiful flowers for you</p>
+				<a href="https://flowerforsaira.enjoyxd.eu.org/" class="gradient-button" target="_blank">Here is the
+					garden.</a>
+				<p class="instruction">Don't forget to tap the screen once you're in the garden.</p>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Mobile Controls (Global) -->
+	<div id="mobile_controls">
+		<div class="dpad-row">
+			<div class="dpad-btn" id="btn_up">&#9650;</div>
+		</div>
+		<div class="dpad-row">
+			<div class="dpad-btn" id="btn_left">&#9664;</div>
+			<div class="dpad-btn" id="btn_down">&#9660;</div>
+			<div class="dpad-btn" id="btn_right">&#9654;</div>
+		</div>
+	</div>
+
+	</div>
+</body>
+
+</html>
+
+<script src="js/Key.js"></script>
+<script src="js/game.js"></script>
+<script src="js/popup.js"></script>
+<script src="js/soundjs-0.6.0.min.js"></script>
+
+<script>
+	//STAGE = 4;
+</script>

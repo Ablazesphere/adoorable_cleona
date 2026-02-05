@@ -1,0 +1,544 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+	--font-heading: 'Press Start 2P', cursive;
+	--font-body: 'VT323', monospace;
+	--color-primary: #FF6B6B;
+	--color-bg: #FFF0F5;
+	--color-text: #333333;
+	--color-accent: #c8a2c8;
+}
+
+body {
+	margin: 0;
+
+	font-family: var(--font-body);
+	font-size: 20px;
+	font-weight: 100;
+	color: var(--color-text);
+
+	overflow: hidden;
+	background-color: var(--color-bg);
+}
+
+/* CRT Scanline Effect */
+body::after {
+	content: " ";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+	z-index: 9999;
+	background-size: 100% 2px, 3px 100%;
+	pointer-events: none;
+}
+
+@keyframes jitter {
+	0% {
+		transform: translate(1px, 1px);
+	}
+
+	10% {
+		transform: translate(-1px, -2px);
+	}
+
+	20% {
+		transform: translate(-3px, 0px);
+	}
+
+	30% {
+		transform: translate(0px, 2px);
+	}
+
+	40% {
+		transform: translate(1px, -1px);
+	}
+
+	50% {
+		transform: translate(-1px, 2px);
+	}
+
+	60% {
+		transform: translate(-3px, 1px);
+	}
+
+	70% {
+		transform: translate(2px, 1px);
+	}
+
+	80% {
+		transform: translate(-1px, -1px);
+	}
+
+	90% {
+		transform: translate(2px, 2px);
+	}
+
+	100% {
+		transform: translate(1px, -2px);
+	}
+}
+
+@keyframes pulse-heart {
+	0% {
+		transform: scale(1);
+		opacity: 0.8;
+	}
+
+	50% {
+		transform: scale(1.1);
+		opacity: 1;
+		text-shadow: 0 0 10px #ff0000;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 0.8;
+	}
+}
+
+/* Enhancing Text Elements */
+h1,
+h2,
+h3,
+.gradient-button,
+#loading div {
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.surprise-container h1:hover {
+	animation: jitter 0.5s infinite;
+}
+
+#loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #111;
+	/* Darker background for contrast */
+	color: #FF6B6B;
+	font-size: 40px;
+	font-family: 'Press Start 2P', cursive;
+	text-align: center;
+	z-index: 10000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loading>div {
+	position: relative;
+	top: auto;
+	left: auto;
+	right: auto;
+	bottom: auto;
+	animation: pulse-heart 1.5s infinite;
+	letter-spacing: 2px;
+}
+
+canvas {
+	float: left;
+	margin-right: 20px;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#whole_container {
+	display: block;
+	/* Always visible, acts as the viewport */
+}
+
+#screen_one,
+#screen_two,
+#screen_three {
+	width: 100%;
+	height: 100vh;
+	/* Use vh for explicit height */
+	min-height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	/* Hide all by default */
+}
+
+#mobile_controls {
+	z-index: 2000;
+	/* Ensure overlaying everything */
+}
+
+#screen_one {
+	display: block;
+	/* Show intro by default */
+	background-color: #bbb;
+	background-image: url(intro.png);
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+#screen_two {
+	background: #333;
+}
+
+#screen_three {
+	background: #fff;
+
+}
+
+#canvas_container {
+	width: 940px;
+	height: 380px;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: url(levels_bg.png);
+	background-repeat: no-repeat;
+}
+
+#valentines_text,
+#rewind_text,
+#replay_text {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+	color: #666;
+	font-size: 30px;
+	text-align: center;
+	letter-spacing: 0px;
+
+	-webkit-transition: letter-spacing 5s ease-out;
+	-moz-transition: letter-spacing 5s ease-out;
+	-ms-transition: letter-spacing 5s ease-out;
+	transition: letter-spacing 5s ease-out;
+
+}
+
+#rewind_text,
+#replay_text {
+	color: #ccc;
+	letter-spacing: 2px;
+	/*text-align: left;*/
+}
+
+#end_container {
+	width: 800px;
+	height: 550px;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 25px;
+
+	text-align: center;
+}
+
+#support {
+	font-size: 30px;
+	color: #fff;
+	background: #ff7f29;
+	padding: 10px;
+	width: 320px;
+	border-radius: 10px;
+	margin: 10px auto;
+	cursor: pointer;
+
+	position: relative;
+	top: 0px;
+
+	text-decoration: none;
+
+	-webkit-transition: all 0.1s ease-out;
+	-moz-transition: all 0.1s ease-out;
+	-ms-transition: all 0.1s ease-out;
+	transition: all 0.1s ease-out;
+
+}
+
+#support:hover {
+	background: #ffce87;
+	top: -3px;
+}
+
+input#your_message {
+	display: block;
+	width: 100%;
+	font-size: 30px;
+	padding: 5px;
+	border: 2px solid #ddd;
+	margin: 5px 0 40px 0;
+
+	color: #666;
+	padding-top: 8px;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: 100;
+
+	text-align: center;
+}
+
+input#your_link {
+	display: block;
+	width: 100%;
+	font-size: 15px;
+	padding: 5px;
+	background: #ddd;
+	border: none;
+	margin: 5px 0 40px 0;
+
+	color: #666;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: 100;
+
+	text-align: center;
+}
+
+#share {
+	width: 330px;
+	margin: 5px auto;
+	height: 50px;
+	margin-bottom: 30px;
+}
+
+#share>div {
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin-right: 5px;
+
+	opacity: 0.25;
+	position: relative;
+	top: 0;
+	cursor: pointer;
+
+	-webkit-transition: all 0.1s ease-out;
+	-moz-transition: all 0.1s ease-out;
+	-ms-transition: all 0.1s ease-out;
+	transition: all 0.1s ease-out;
+
+}
+
+#share>div:hover {
+	opacity: 0.7;
+	top: -3px;
+}
+
+#share_facebook {
+	background: url(../icons/facebook.png);
+}
+
+#share_twitter {
+	background: url(../icons/twitter.png);
+}
+
+#share_plus {
+	background: url(../icons/plus.png);
+}
+
+#share_tumblr {
+	background: url(../icons/tumblr.png);
+}
+
+#share_reddit {
+	background: url(../icons/reddit.png);
+}
+
+#share_stumbleupon {
+	background: url(../icons/stumbleupon.png);
+	margin-right: 0px;
+}
+
+#bottom {
+	font-size: 17px;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	color: #999;
+}
+
+#bottom a {
+	color: #aaa;
+}
+
+#bottom a:hover {
+	color: #ccc;
+}
+
+#loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
+	background: #333;
+	color: #fff;
+	font-size: 30px;
+	letter-spacing: 5px;
+	text-align: center;
+
+	z-index: 1;
+}
+
+#loading>div {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+}
+
+/* Mobile Controls */
+#mobile_controls {
+	display: none;
+	position: fixed;
+	/* Changed from absolute to fixed */
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1000;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+}
+
+.dpad-row {
+	display: flex;
+	gap: 15px;
+}
+
+.dpad-btn {
+	width: 60px;
+	height: 60px;
+	background: #333;
+	border: 4px solid #000;
+	box-shadow: 4px 4px 0px #000;
+	border-radius: 0;
+	/* Square buttons for retro feel */
+	color: #fff;
+	font-family: var(--font-heading);
+	font-size: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
+	text-shadow: 2px 2px 0px #000;
+}
+
+.dpad-btn:active,
+.dpad-btn.active {
+	background: var(--color-primary);
+	transform: translate(4px, 4px);
+	box-shadow: 0px 0px 0px #000;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 960px) {
+	#mobile_controls {
+		display: flex;
+	}
+
+	#canvas_container {
+		transform-origin: top center;
+		transform: scale(0.8);
+		top: 50px;
+		/* Adjust top spacing */
+		width: 100%;
+	}
+
+	#valentines_text,
+	#rewind_text,
+	#replay_text {
+		font-size: 20px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	body {
+		overflow-y: auto;
+		/* Enable vertical scrolling */
+		-webkit-overflow-scrolling: touch;
+	}
+
+	#whole_container {
+		height: auto;
+		/* Allow container to grow */
+		overflow: visible;
+	}
+
+	#screen_two {
+		height: auto;
+		overflow: visible;
+		padding-bottom: 200px;
+		/* Space for controls */
+	}
+
+	#canvas_container {
+		width: 100% !important;
+		height: auto !important;
+		transform: none !important;
+		top: 20px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	canvas {
+		float: none;
+		margin-right: 0;
+		margin-bottom: 20px;
+		max-width: 90%;
+		height: auto !important;
+	}
+
+	.dpad-btn {
+		width: 50px;
+		height: 50px;
+		font-size: 20px;
+	}
+
+	#mobile_controls {
+		bottom: 20px;
+	}
+
+	#screen_one {
+		background-size: contain;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	#canvas_container {
+		transform: scale(0.35);
+		top: 100px;
+		/* Push down further on very small screens */
+	}
+
+	#mobile_controls {
+		bottom: 80px;
+		/* Move controls up a bit */
+	}
+}
