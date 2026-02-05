@@ -169,7 +169,15 @@ body {
 	top: 0;
 	left: 0;
 	display: none;
-	/* Hide all by default */
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+}
+
+#screen_one.active,
+#screen_two.active,
+#screen_three.active {
+	display: block;
+	opacity: 1;
 }
 
 #mobile_controls {
@@ -501,10 +509,11 @@ input#your_link {
 		width: 100% !important;
 		height: auto !important;
 		transform: none !important;
-		top: 20px;
+		top: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding-top: 20px;
 	}
 
 	canvas {

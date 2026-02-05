@@ -83,12 +83,12 @@ function Level(config, isIntro) {
 		var ctx = self.ctx;
 
 		// BIGGER EVERYTHING
+		// CENTER EVERYTHING
 		if (self.isIntro) {
 			ctx.save();
-			var introScale = 1.5;
-			ctx.scale(introScale, introScale);
-			ctx.translate(-self.width / 2, -self.height / 2);
-			ctx.translate((self.width / 2) / introScale, (self.height / 2) / introScale);
+			ctx.translate(self.width / 2, self.height / 2);
+			ctx.scale(1.5, 1.5);
+			ctx.translate(-cx, -cy);
 		}
 
 		// Clear
@@ -370,14 +370,8 @@ function Door(config, level) {
 					STAGE = 1;
 					syncScreens();
 
-					CURRENT_LEVEL = 0;
-					var lvl = new Level(LEVEL_CONFIG[CURRENT_LEVEL]);
 					levelObjects[CURRENT_LEVEL] = lvl;
-					window.level = null;
-					setTimeout(function () {
-						window.level = lvl;
-					}, 1200);
-
+					window.level = lvl;
 					return "END_LEVEL";
 				} else {
 					next();
@@ -700,19 +694,19 @@ function syncScreens() {
 	if (container) container.style.display = "block";
 
 	if (STAGE == 0) {
-		s1.style.display = "block";
-		s2.style.display = "none";
-		s3.style.display = "none";
+		s1.classList.add("active");
+		s2.classList.remove("active");
+		s3.classList.remove("active");
 		if (controls) controls.style.display = "block";
 	} else if (STAGE >= 1 && STAGE <= 4) {
-		s1.style.display = "none";
-		s2.style.display = "block";
-		s3.style.display = "none";
+		s1.classList.remove("active");
+		s2.classList.add("active");
+		s3.classList.remove("active");
 		if (controls) controls.style.display = "block";
 	} else if (STAGE >= 5) {
-		s1.style.display = "none";
-		s2.style.display = "none";
-		s3.style.display = "block";
+		s1.classList.remove("active");
+		s2.classList.remove("active");
+		s3.classList.add("active");
 		if (controls) controls.style.display = "none";
 	}
 }
@@ -747,17 +741,14 @@ function next() {
 					window.level = lvl;
 					// Auto-scroll to the new level's canvas on mobile
 					if (window.innerWidth <= 600 && lvl.canvas) {
-						// slight delay to ensure layout is settled
-						setTimeout(() => {
-							lvl.canvas.scrollIntoView({ behavior: "smooth", block: "center" });
-						}, 50);
+						lvl.canvas.scrollIntoView({ behavior: "smooth", block: "center" });
 					}
 				} catch (err) {
 					console.error("Error setting level:", err);
 				} finally {
-					transitionActive = false; // Reset flag
+					transitionActive = false;
 				}
-			}, 500);
+			}, 300);
 
 		} else {
 			level = null;
