@@ -42,4 +42,4 @@ npm test
 * **Social Media Icons**: [Customizr](http://customizr.net/icons/)
 
 ---
-*Created with ❤️ for Saira.*
+*Created with ❤️ for Cleona.*
