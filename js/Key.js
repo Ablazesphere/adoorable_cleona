@@ -13,10 +13,27 @@
 		27: "pause", 80: "pause"
 	};
 
+	// Map direction codes to D-pad button IDs
+	var DPAD_BUTTON_IDS = {
+		"left": "btn_left",
+		"right": "btn_right",
+		"up": "btn_up",
+		"down": "btn_down"
+	};
+
 	// Event Handling
 	var onKeyDown = function (event) {
 		var code = KEY_CODES[event.keyCode];
 		Key[code] = true;
+
+		// Add visual feedback to D-pad button if it exists
+		if (DPAD_BUTTON_IDS[code]) {
+			var btnElement = document.getElementById(DPAD_BUTTON_IDS[code]);
+			if (btnElement) {
+				btnElement.classList.add('active');
+			}
+		}
+
 		if (window.STAGE == 4) return;
 		event.stopPropagation();
 		event.preventDefault();
@@ -24,6 +41,15 @@
 	var onKeyUp = function (event) {
 		var code = KEY_CODES[event.keyCode];
 		Key[code] = false;
+
+		// Remove visual feedback from D-pad button if it exists
+		if (DPAD_BUTTON_IDS[code]) {
+			var btnElement = document.getElementById(DPAD_BUTTON_IDS[code]);
+			if (btnElement) {
+				btnElement.classList.remove('active');
+			}
+		}
+
 		if (window.STAGE == 4) return;
 		event.stopPropagation();
 		event.preventDefault();
